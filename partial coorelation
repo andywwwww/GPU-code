@@ -1,0 +1,14 @@
+#input calc(x,y,n), calc(x,z,n), calc(z,y,n)
+
+XY = calc(x,y,n)
+XZ = calc(x,z,n)
+ZY = calc(z,y,n)
+
+def nem(XY, XZ, ZY):
+    return XY - (XZ * ZY)
+
+def dem(XZ, ZY)
+    XZ = square(1 - XZ * XZ)
+    ZY = square(1 - ZY * ZY)
+    return XZ * ZY
+    
