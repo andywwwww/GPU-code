@@ -1,0 +1,40 @@
+def sci(S):
+    S_SN = S
+    #step1 turn S into scientific notation
+    n = 0
+    while (S_SN>100):
+        S_SN *= 1/10
+        n += 1
+    n = int(n//2)
+    #print(n, S_SN)
+    return n, S_SN
+
+#step2 initial seed value
+
+def seed(S):
+    n, a = sci(S)
+    #print(n,a)
+    y = 1
+    for i in range(n):
+        y *= 10
+    if a < 10:
+        y *= 2
+    else:
+        y *= 6
+    #print(y)
+    return y
+
+def sqrt(S):
+#step3 sqaure root algorithms
+    y = float(seed(S))
+    e = 0.000000001
+    while (abs(y*y-S) > e):
+        y += S/y
+        y *= .5
+        print(y)
+    return y 
+
+S = np.random.normal()
+
+#print(seed(S))
+print(sqrt(S))
