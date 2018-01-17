@@ -59,7 +59,7 @@ def nem(x,y):
                 Ymean = findMean(y[:,coly])
         productSum = 0
         for row in range(x.shape[0]):
-                productSum += (x[row,colx]-Xmean[colx]) * (y[row,coly]-Ymean[coly]) #what were i and j again? x[i,j] = x[:, colx]?
+                productSum += (x[row,colx]-Xmean[colx]) * (y[row,coly]-Ymean[coly])
         c[colx,coly] = productSum   
         #print(2)
     return c
