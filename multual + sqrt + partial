@@ -41,53 +41,52 @@ def square(x):
 
 #step4 menwhile find mean
 def findMean(x):
-	Xsum = 0
-	for i in range(len(x)):
-		Xsum += x[i]
-	Xmean = Xsum / float(len(x))
-	#print(1)
-	return Xmean
+    Xsum = 0
+    for i in range(len(x)):
+        Xsum += x[i]
+    Xmean = Xsum / float(len(x))
+    return Xmean
 
 #step 5 
 def nem(x,y):
-	product = 1
-	list = []
-	#productSum = 0
-	#if n <=0 or len(x) <=0 or len(y) <=0: 
-		#return "error"
-        c = np.zeros((x.shape[1],y.shape[1]),dtype = np.float32)
-	for colx in range(x.shape[1]):
-          Xmean = findMean(x[:,colx])
-          for coly in range(y.shape[1]):
-            Ymean = findMean(y[:,coly])
-            productSum = 0
-            for row in range(x.shape[0]):
-		  productSum += (x[i,j]-Xmean[j]) * (y[i,j]-Ymean[j]) #what were i and j again? x[i,j] = x[:, colx]?
-            c[colx,coly] = productSum   
+    
+    product = 1
+    list = []    
+    c = np.zeros((x.shape[1],y.shape[1]),dtype = np.float32)    
+    for colx in range(x.shape[1]):
+        Xmean = findMean(x[:,colx])
+        for coly in range(y.shape[1]):
+                Ymean = findMean(y[:,coly])
+        productSum = 0
+        for row in range(x.shape[0]):
+                productSum += (x[row,colx]-Xmean[colx]) * (y[row,coly]-Ymean[coly]) #what were i and j again? x[i,j] = x[:, colx]?
+        c[colx,coly] = productSum   
         #print(2)
-	return c
+    return c
 	
 def dem(x,y):
-	Xmean,Ymean = findMean(x,y)
-	XSS = np.zeros((x.shape[1],1),dtype=np.float32)
-	for col in range(x.shape[1]):
-          Xmean = findMean(x[col]) 
-          for row in x.shape[0]):
-                XSS[row,0] += (x[row,col]-Xmean[col]) * (x[row,col]-Xmean[col])
-	YSS = np.zeros((1,x.shape[1]),dtype=np.float32)
-	for col in range(y.shape[1]):
-          Ymean = findMean(y[col])
-		for row in range(y.shape[0]):
-		  YSS[0,col] += (y[row,col]-Ymean[col]) * (y[row,cal]-Ymean[row])
-	c = np.matmul(XSS,YSS)
-	for row in c.shape[0]:
-          for col in c.shape[1]:
-                  c[row,col] = square(c[row,col])
-        return c
-def calc(x,y,n):
+    Xmean,Ymean = findMean(x,y)
+    XSS = np.zeros((x.shape[1],1),dtype=np.float32)
+    for col in range(x.shape[1]):
+            Xmean = findMean(x[col])
+            for row in x.shape[0]:
+                    XSS[row,0] += (x[row,col]-Xmean[col]) * (x[row,col]-Xmean[col])
+            YSS = np.zeros((1,x.shape[1]),dtype=np.float32)
+            for col in range(y.shape[1]):
+                    Ymean = findMean(y[col])
+                    for row in range(y.shape[0]):
+                            YSS[0,col] += (y[row,col]-Ymean[col]) * (y[row,cal]-Ymean[row])
+            c = np.matmul(XSS,YSS)
+            for row in c.shape[0]:
+                    for col in c.shape[1]:
+                            c[row,col] = square(c[row,col])
+            return c
+
+
+def calc(x,y):
 	#print("test")
-	productSum = nem(x,y,n)
-	squareProduct = dem(x,y,n)
+	productSum = nem(x,y)
+	squareProduct = dem(x,y)
 	r = productSum / squareProduct #upper is a summation and lower is square root
 	#print(productSum, squareProduct)
 	#print(4)
@@ -99,15 +98,15 @@ y = np.random.rand(10,100)
 z = np.random.rand(10,100)
 n = 10
 
-XY = calc(x,y,n)
-XZ = calc(x,z,n)
-ZY = calc(z,y,n)
+XY = calc(x,y)
+XZ = calc(x,z)
+ZY = calc(z,y)
 
 def nem(XY, XZ, ZY):
   c = XY - (XZ * ZY)
   return c
 
-def dem(XZ, ZY)
+def dem(XZ, ZY):
     XZ = square(1 - XZ * XZ)
     ZY = square(1 - ZY * ZY)
     c = XZ * ZY
