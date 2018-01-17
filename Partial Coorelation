@@ -7,7 +7,7 @@ def findMean(x):
 	for i in range(len(x)):
 		Xsum += x[i]
 	Xmean = Xsum / float(len(x))
-	print(1)
+	#print(1)
 	return Xmean
 def nem(x,y):
 	product = 1
@@ -22,9 +22,9 @@ def nem(x,y):
             Ymean = findMean(y[:,coly])
             productSum = 0
             for row in range(x.shape[0]):
-		  productSum += (x[i,j]-Xmean[j]) * (y[i,j]-Ymean[j])
+		  productSum += (x[i,j]-Xmean[j]) * (y[i,j]-Ymean[j]) #what were i and j again? x[i,j] = x[:, colx]?
             c[colx,coly] = productSum   
-        print(2)
+        #print(2)
 	return c
 	
 def dem(x,y):
@@ -33,7 +33,7 @@ def dem(x,y):
 	for col in range(x.shape[1]):
           Xmean = findMean(x[col]) 
           for row in x.shape[0]):
-                XSS[j,0] += (x[row,j]-Xmean[j]) * (x[row,j]-Xmean[j])
+                XSS[row,0] += (x[row,col]-Xmean[col]) * (x[row,col]-Xmean[col])
 	YSS = np.zeros((1,x.shape[1]),dtype=np.float32)
 	for col in range(y.shape[1]):
           Ymean = findMean(y[col])
@@ -50,7 +50,7 @@ def calc(x,y,n):
 	squareProduct = dem(x,y,n)
 	r = productSum / squareProduct #upper is a summation and lower is square root
 	#print(productSum, squareProduct)
-	print(4)
+	#print(4)
 	print(r)
 	return r
 x = np.random.rand(10,100)
