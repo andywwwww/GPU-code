@@ -1,3 +1,18 @@
+#!/usr/bin/env python2
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Jan 17 16:35:31 2018
+
+@author: andreaandone
+"""
+
+# -*- coding: utf-8 -*-
+"""
+Spyder Editor
+
+This is a temporary script file.
+"""
+
 #importpackages
 import math
 import numpy as np
@@ -50,8 +65,8 @@ def findMean(x):
 #step 5 
 def nem(x,y):
     
-    product = 1
-    list = []    
+    #product = 1
+    #list = []    
     c = np.zeros((x.shape[1],y.shape[1]),dtype = np.float32)    
     for colx in range(x.shape[1]):
         Xmean = findMean(x[:,colx])
@@ -75,7 +90,7 @@ def dem(x,y):
             for col in range(y.shape[1]):
                     Ymean = findMean(y[col])
                     for row in range(y.shape[0]):
-                            YSS[0,col] += (y[row,col]-Ymean[col]) * (y[row,cal]-Ymean[row])
+                            YSS[0,col] += (y[row,col]-Ymean[col]) * (y[row,col]-Ymean[row])
             c = np.matmul(XSS,YSS)
             for row in c.shape[0]:
                     for col in c.shape[1]:
@@ -93,6 +108,16 @@ def calc(x,y):
 	print(r)
 	return r
 
+def nem_pc(XY, XZ, ZY):
+  nem_pcResult = XY - (XZ * ZY)
+  return nem_pcResult
+
+def dem_pc(XZ, ZY):
+    XZ = square(1 - XZ * XZ)
+    ZY = square(1 - ZY * ZY)
+    dem_pcResult = XZ * ZY
+    return dem_pcResult
+
 x = np.random.rand(10,100)
 y = np.random.rand(10,100)
 z = np.random.rand(10,100)
@@ -102,12 +127,4 @@ XY = calc(x,y)
 XZ = calc(x,z)
 ZY = calc(z,y)
 
-def nem(XY, XZ, ZY):
-  c = XY - (XZ * ZY)
-  return c
-
-def dem(XZ, ZY):
-    XZ = square(1 - XZ * XZ)
-    ZY = square(1 - ZY * ZY)
-    c = XZ * ZY
-    return c
+print(nem_pc(XY, XZ, ZY)//dem_pc(XZ, ZY))
