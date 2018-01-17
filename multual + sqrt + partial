@@ -1,0 +1,114 @@
+#importpackages
+import math
+import numpy as np
+import numpy.random as random
+
+#step 1turn import into scientific notation
+def sci(x):
+    S_SN = x
+    #step1 turn S into scientific notation
+    n = 0
+    while (S_SN>100):
+        S_SN *= 1/10
+        n += 1
+    n = int(n//2)
+    #print(n, S_SN)
+    return n, S_SN
+
+#step2 initial seed value
+def seed(x):
+    n, a = sci(x)
+    #print(n,a)
+    y = 1
+    for i in range(n):
+        y *= 10
+    if a < 10:
+        y *= 2
+    else:
+        y *= 6
+    #print(y)
+    return y
+
+#step3 sqaure root algorithms
+def square(x):
+    squareResult = float(seed(x))
+    e = 0.000000001
+    while (abs(squareResult*squareResult-x) > e):
+        squareResult += x/squareResult
+        squareResult *= .5
+        #print(squareResult)
+    return squareResult
+
+#step4 menwhile find mean
+def findMean(x):
+	Xsum = 0
+	for i in range(len(x)):
+		Xsum += x[i]
+	Xmean = Xsum / float(len(x))
+	#print(1)
+	return Xmean
+
+#step 5 
+def nem(x,y):
+	product = 1
+	list = []
+	#productSum = 0
+	#if n <=0 or len(x) <=0 or len(y) <=0: 
+		#return "error"
+        c = np.zeros((x.shape[1],y.shape[1]),dtype = np.float32)
+	for colx in range(x.shape[1]):
+          Xmean = findMean(x[:,colx])
+          for coly in range(y.shape[1]):
+            Ymean = findMean(y[:,coly])
+            productSum = 0
+            for row in range(x.shape[0]):
+		  productSum += (x[i,j]-Xmean[j]) * (y[i,j]-Ymean[j]) #what were i and j again? x[i,j] = x[:, colx]?
+            c[colx,coly] = productSum   
+        #print(2)
+	return c
+	
+def dem(x,y):
+	Xmean,Ymean = findMean(x,y)
+	XSS = np.zeros((x.shape[1],1),dtype=np.float32)
+	for col in range(x.shape[1]):
+          Xmean = findMean(x[col]) 
+          for row in x.shape[0]):
+                XSS[row,0] += (x[row,col]-Xmean[col]) * (x[row,col]-Xmean[col])
+	YSS = np.zeros((1,x.shape[1]),dtype=np.float32)
+	for col in range(y.shape[1]):
+          Ymean = findMean(y[col])
+		for row in range(y.shape[0]):
+		  YSS[0,col] += (y[row,col]-Ymean[col]) * (y[row,cal]-Ymean[row])
+	c = np.matmul(XSS,YSS)
+	for row in c.shape[0]:
+          for col in c.shape[1]:
+                  c[row,col] = square(c[row,col])
+        return c
+def calc(x,y,n):
+	#print("test")
+	productSum = nem(x,y,n)
+	squareProduct = dem(x,y,n)
+	r = productSum / squareProduct #upper is a summation and lower is square root
+	#print(productSum, squareProduct)
+	#print(4)
+	print(r)
+	return r
+
+x = np.random.rand(10,100)
+y = np.random.rand(10,100)
+z = np.random.rand(10,100)
+n = 10
+
+XY = calc(x,y,n)
+XZ = calc(x,z,n)
+ZY = calc(z,y,n)
+
+def nem(XY, XZ, ZY):
+  c = XY - (XZ * ZY)
+  return c
+
+def dem(XZ, ZY)
+    XZ = square(1 - XZ * XZ)
+    ZY = square(1 - ZY * ZY)
+    c = XZ * ZY
+    return c
