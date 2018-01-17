@@ -1,7 +1,9 @@
+#importpackages
 import math
 import numpy as np
 import numpy.random as random
-#from scipy.stats.stats import pearsonr
+
+#step 1turn import into scientific notation
 def sci(x):
     S_SN = x
     #step1 turn S into scientific notation
@@ -14,7 +16,6 @@ def sci(x):
     return n, S_SN
 
 #step2 initial seed value
-
 def seed(x):
     n, a = sci(x)
     #print(n,a)
@@ -28,8 +29,8 @@ def seed(x):
     #print(y)
     return y
 
-def square(x):
 #step3 sqaure root algorithms
+def square(x):
     squareResult = float(seed(x))
     e = 0.000000001
     while (abs(squareResult*squareResult-x) > e):
@@ -37,7 +38,8 @@ def square(x):
         squareResult *= .5
         #print(squareResult)
     return squareResult
-  
+
+#step4 menwhile find mean
 def findMean(x):
 	Xsum = 0
 	for i in range(len(x)):
@@ -45,6 +47,8 @@ def findMean(x):
 	Xmean = Xsum / float(len(x))
 	#print(1)
 	return Xmean
+
+#step 5 
 def nem(x,y):
 	product = 1
 	list = []
